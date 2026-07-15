@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antilhas · Login</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="center-page">
+  <div class="grid-backdrop"></div>
+  <main class="card">
+    <img src="/logo.png" alt="Antilhas" class="logo">
+    <p class="eyebrow">Painel de indicadores · Uso interno</p>
+    <h1>Entrar</h1>
+
+    <form id="loginForm" method="POST" action="/login">
+      <label class="field-label" for="username">Usuário</label>
+      <input class="field" type="text" id="username" name="username" autocomplete="username" required>
+
+      <label class="field-label" for="password">Senha</label>
+      <input class="field" type="password" id="password" name="password" autocomplete="current-password" required>
+
+      <div id="errorMsg" class="error-msg" style="display:none">Usuário ou senha inválidos.</div>
+
+      <button class="cta" type="submit" style="margin-top: 18px;">Entrar</button>
+    </form>
+
+    <p class="footer">Antilhas Embalagens Indústria</p>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('erro')) {
+      document.getElementById('errorMsg').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
