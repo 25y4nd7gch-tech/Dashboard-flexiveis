@@ -9,8 +9,8 @@ const XLSX = require('xlsx');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const USERS_FILE = path.join(__dirname, 'data', 'users.json');
-const LATEST_FILE = path.join(__dirname, 'data', 'latest.json');
+const USERS_FILE = path.join(__dirname, 'Data', 'users.json');
+const LATEST_FILE = path.join(__dirname, 'Data', 'latest.json');
 
 // ---------- Helpers de senha ----------
 function hashPassword(password) {
@@ -37,7 +37,7 @@ function loadLatest() {
 // ---------- Middleware ----------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'Public')));
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'antilhas-dashboard-secret-troque-em-producao',
@@ -60,7 +60,7 @@ const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 40 
 
 // ---------- Rotas de autenticação ----------
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+  res.sendFile(path.join(__dirname, 'Views', 'login.html'));
 });
 
 app.post('/login', (req, res) => {
@@ -82,7 +82,7 @@ app.get('/', (req, res) => res.redirect('/dashboard'));
 
 // ---------- Dashboard ----------
 app.get('/dashboard', requireAuth, (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'dashboard.html'));
+  res.sendFile(path.join(__dirname, 'Views', 'dashboard.html'));
 });
 
 app.get('/api/me', requireAuth, (req, res) => {
@@ -99,7 +99,7 @@ app.get('/api/dashboard-data', requireAuth, (req, res) => {
 
 // ---------- Admin: upload da planilha ----------
 app.get('/admin', requireAuth, requireAdmin, (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'admin.html'));
+  res.sendFile(path.join(__dirname, 'Views', 'admin.html'));
 });
 
 app.post('/admin/upload', requireAuth, requireAdmin, upload.single('planilha'), (req, res) => {
